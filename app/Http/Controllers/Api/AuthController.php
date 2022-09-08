@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\TokenRequest;
 use App\Mail\ResetPassword;
 use App\Models\Client;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -57,7 +59,7 @@ class AuthController extends Controller
                 }
 
                 return $this->apiResponseJson([
-                    'api-token' => $client->api_token,
+                    'api_token' => $client->api_token,
                     'client' => $client
                 ],'تم تسجيل الدخول بنجاح',200);
 
@@ -127,6 +129,27 @@ class AuthController extends Controller
         }else{
             return $this->apiResponseJson(null,'لا يوجد لك حساب',404);
         }
+    }
+
+
+    public function registerToken(TokenRequest $request){
+
+        Token::where('token',$request->token)->delete();
+
+        $request->user('api')->tokens()->create( $request->validated() );
+
+        return $this->apiResponseJson(null);
+
+    }
+    public function removeToken(Request $request){
+        $validation = $request->validate([
+            'token' => 'required',
+        ],[
+            'token.required' => 'عفواً يجب إدخال التوكن',
+        ]);
+
+        Token::where('token',$request->token)->delete();
+        return $this->apiResponseJson(null);
     }
 
 

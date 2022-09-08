@@ -74,4 +74,9 @@ class Client extends Authenticatable
         return $this->belongsToMany('App\Models\Notification')->withTimestamps();
     }
 
+    public function tokens()
+    {
+        return $this->hasMany('App\Models\Token');
+    }
+
 }
