@@ -15,6 +15,15 @@ use Spatie\Permission\Traits\HasRoles;
 class UsersController extends Controller
 {
     use HasRoles;
+
+    function __construct()
+    {
+        $this->middleware('permission:عرض المستخدمين', ['only' => ['index']]);
+        $this->middleware('permission:اضافة مستخدم', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل مستخدم', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف مستخدم', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +57,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required|same:confirm_password',
             'roles_name' => 'required',
             'status' => 'required'
         ]);
@@ -98,7 +107,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'password' => 'same:confirm_password',
             'roles_name' => 'required',
             'status' => 'required',
         ]);
@@ -146,9 +155,9 @@ class UsersController extends Controller
                 $user->update([
                     'password' => bcrypt($request->new_password)
                 ]);
-                return redirect()->back()->with(['success' => 'تم تغيير كلمة المرور بنجاح']);
+                return redirect()->route('admin.dashboard')->with(['success' => 'تم تغيير كلمة المرور بنجاح']);
             }else{
-                return redirect()->back()->with(['error' => 'عفواً كلمة المرور القديمة خاطئة']);
+                return redirect()->route('admin.dashboard')->with(['error' => 'عفواً كلمة المرور القديمة خاطئة']);
             }
         }
 

@@ -29,7 +29,7 @@
                         @foreach($posts as $post)
                             <div class="col-4">
                                 <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="{{asset('images/posts/'.$post->img)}}" alt="Card image cap">
+                                    <img class="card-img-top" src="{{asset('images/posts/'.$post->image)}}" alt="Card image cap">
                                     <div class="card-body">
                                         <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
                                             <i class="fa fa-heart" id="favIcon" style="position: absolute;

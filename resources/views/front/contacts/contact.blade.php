@@ -61,28 +61,11 @@
                             <h4>تواصل معنا</h4>
                         </div>
                         <div class="fields">
-                            <form action="{{route('contact')}}" method="POST">
-                                @csrf
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="exampleFormControlInput1" placeholder="البريد الإلكتروني" name="email">
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <input type="text" class="form-control @error('subject') is-invalid @enderror" id="exampleFormControlInput1" placeholder="عنوان الرساله" name="subject">
-                                @error('subject')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <textarea placeholder="نص الرسالة" class="form-control  @error('message') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name="message"></textarea>
-                                @error('message')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <button type="submit">ارسال</button>
-                            </form>
+                            {!! Form::open(['route' => 'contact']) !!}
+
+                                @include('front.contacts.form')
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

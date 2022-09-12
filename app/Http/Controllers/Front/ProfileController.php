@@ -17,8 +17,8 @@ class ProfileController extends Controller
     */
     public function profileData(){
         $client = auth('client')->user();
-        $cities = City::all();
-        $blood_types = BloodType::all();
+        $cities = City::pluck('name','id')->all();
+        $blood_types = BloodType::pluck('name','id')->all();
         return view('front.profile.profile',compact('client','cities','blood_types'));
     }
 

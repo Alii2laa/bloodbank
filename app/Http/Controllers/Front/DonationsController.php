@@ -17,8 +17,8 @@ class DonationsController extends Controller
         with cities and blood_types to select their needs that they want from donators.
     */
     public function donationView(){
-        $cities = City::all();
-        $blood_types = BloodType::all();
+        $cities = City::pluck('name','id')->all();
+        $blood_types = BloodType::pluck('name','id')->all();
         return view('front.donations.create',compact('cities','blood_types'));
     }
 

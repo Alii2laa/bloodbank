@@ -8,6 +8,13 @@ use App\Models\Governorate;
 
 class GovernoratesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض المحافظات', ['only' => ['index']]);
+        $this->middleware('permission:اضافة محافظة', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل محافظة', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف محافظة', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +45,7 @@ class GovernoratesController extends Controller
     public function store(GovernorateRequest $request)
     {
         Governorate::create( $request->validated() );
-        return redirect()->back()->with(['success' => 'تم إضافة المحافظة بنجاح']);
+        return redirect()->route('governorates.index')->with(['success' => 'تم إضافة المحافظة بنجاح']);
 
     }
 
@@ -63,7 +70,7 @@ class GovernoratesController extends Controller
     {
         $governorate = Governorate::find($id);
         if(!$governorate){
-            return redirect()->back()->with(['error' => 'لا توجد محافظة']);
+            return redirect()->route('governorates.index')->with(['error' => 'لا توجد محافظة']);
         }
         return view('admin.governorates.edit',compact('governorate'));
 
@@ -80,10 +87,10 @@ class GovernoratesController extends Controller
     {
         $governorate = Governorate::find($id);
         if(!$governorate){
-            return redirect()->back()->with(['error' => 'لا توجد محافظة']);
+            return redirect()->route('governorates.index')->with(['error' => 'لا توجد محافظة']);
         }
         $governorate->update( $request->validated() );
-        return redirect()->back()->with(['success' => 'تم تحديث المحافظة بنجاح']);
+        return redirect()->route('governorates.index')->with(['success' => 'تم تحديث المحافظة بنجاح']);
     }
 
     /**
@@ -95,6 +102,6 @@ class GovernoratesController extends Controller
     public function destroy($id)
     {
         Governorate::destroy($id);
-        return redirect()->back()->with(['success' => 'تم حذف المحافظة بنجاح']);
+        return redirect()->route('governorates.index')->with(['success' => 'تم حذف المحافظة بنجاح']);
     }
 }

@@ -30,7 +30,7 @@
                                 <div class="col-4">
                                     <div class="card" style="width: 18rem;">
                                         <div class="photo">
-                                            <img src="{{asset('images/posts/'.$post->img)}}" class="card-img-top" alt="..." width="">
+                                            <img src="{{asset('images/posts/'.$post->image)}}" class="card-img-top" alt="..." width="">
                                         </div>
                                         <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
                                             <i class="{{$post->is_favourite == true ? 'fa fa-heart' : 'far fa-heart'}}" style="position: absolute;

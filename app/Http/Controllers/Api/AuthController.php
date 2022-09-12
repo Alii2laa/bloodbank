@@ -131,7 +131,11 @@ class AuthController extends Controller
         }
     }
 
+    /*
+            RegisterToken function is responsible for set a new token
+            related to a new device for notification.
 
+    */
     public function registerToken(TokenRequest $request){
 
         Token::where('token',$request->token)->delete();
@@ -141,6 +145,12 @@ class AuthController extends Controller
         return $this->apiResponseJson(null);
 
     }
+
+    /*
+            RemoveToken function is responsible for delete an old token
+            related to a device.
+
+    */
     public function removeToken(Request $request){
         $validation = $request->validate([
             'token' => 'required',

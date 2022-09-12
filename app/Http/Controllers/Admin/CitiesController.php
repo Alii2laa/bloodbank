@@ -10,6 +10,13 @@ use App\Models\Governorate;
 
 class CitiesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض المدن', ['only' => ['index']]);
+        $this->middleware('permission:اضافة مدينة', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل مدينة', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف مدينة', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +36,8 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        $governorates = Governorate::all();
+        $governorates = Governorate::pluck('name','id')->all();
+
         return view('admin.cities.create',compact('governorates'));
     }
 
@@ -65,7 +73,7 @@ class CitiesController extends Controller
      */
     public function edit($id)
     {
-        $governorates = Governorate::all();
+        $governorates = Governorate::pluck('name','id')->all();
         $city = City::find($id);
         if(!$city){
             return redirect()->back()->with(['error' => 'لا توجد مدينه']);

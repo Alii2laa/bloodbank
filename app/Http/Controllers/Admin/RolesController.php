@@ -12,7 +12,7 @@ class RolesController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:عرض صلاحية', ['only' => ['index']]);
+        $this->middleware('permission:عرض الصلاحيات', ['only' => ['index']]);
         $this->middleware('permission:اضافة صلاحية', ['only' => ['create','store']]);
         $this->middleware('permission:تعديل صلاحية', ['only' => ['edit','update']]);
         $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
@@ -38,7 +38,7 @@ class RolesController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('roles.index')
-            ->with('success','Role created successfully');
+            ->with('success','تم إنشاء الصلاحية بنجاح');
     }
     public function show($id)
     {
@@ -68,12 +68,12 @@ class RolesController extends Controller
         $role->save();
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+            ->with('success','تم تحديث الصلاحية بنجاح');
     }
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('roles.index')
-            ->with('success','Role deleted successfully');
+            ->with('success','تم حذف الصلاحية بنجاح');
     }
 }

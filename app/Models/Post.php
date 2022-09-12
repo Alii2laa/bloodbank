@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'img',
+        'image',
         'content',
         'category_id'
     ];
@@ -38,9 +38,11 @@ class Post extends Model
     {
         $user = Auth::guard('client')->user();
 
-        $post = Post::whereHas('mClients',function ($query) use ($user){
-            $query->where('client_id',$user->id);
-        })->find($this->id);
+        if ($user){
+            $post = Post::whereHas('mClients',function ($query) use ($user){
+                $query->where('client_id',$user->id);
+            })->find($this->id);
+        }
 
         return Attribute::make(
             get: fn ($value) =>  (bool)$post,

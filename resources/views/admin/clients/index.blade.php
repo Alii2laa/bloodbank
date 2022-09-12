@@ -1,4 +1,8 @@
 @extends('layouts.master')
+@section('title')
+    Clients
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -59,23 +63,25 @@
 
                                             <td>
                                                 <div class="btn-group">
+                                                    @can('تفعيل العميل')
                                                     <form action="{{url('admin/clients/'.$client->id.'/activate')}}" method="POST">
                                                         @csrf
                                                         @method('POST')
                                                         <button type="submit" class="btn btn-success">Activate</button>
                                                     </form>
-
                                                     <form action="{{url('admin/clients/'.$client->id.'/deactivate')}}" method="POST">
                                                         @csrf
                                                         @method('POST')
                                                         <button type="submit" class="btn btn-primary">Deactivate</button>
                                                     </form>
-
+                                                    @endcan
+                                                    @can('حذف العميل')
                                                     <form action="{{route('clients.destroy',$client->id)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
+                                                    @endcan
 
 
                                                 </div>

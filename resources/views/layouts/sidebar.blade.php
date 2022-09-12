@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{asset('assets/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{route('admin.dashboard')}}" class="brand-link">
+        <img src="{{asset('front/imgs/Icon.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">BloodBank</span>
     </a>
 
     <!-- Sidebar -->
@@ -37,6 +37,8 @@
                         </p>
                     </a>
                 </li>
+
+                @can('التصنيفات')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
@@ -46,20 +48,28 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('عرض التصنيفات')
                         <li class="nav-item">
                             <a href="{{route('categories.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All categories</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('اضافة تصنيف')
                         <li class="nav-item">
                             <a href="{{route('categories.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add new category</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+
+                @endcan
+
+                @can('المقالات')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
@@ -69,20 +79,27 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('عرض المقالات')
                         <li class="nav-item">
                             <a href="{{route('posts.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All posts</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('اضافة مقالة')
                         <li class="nav-item">
                             <a href="{{route('posts.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add new post</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+                @can('المحافظات')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-globe"></i>
@@ -92,20 +109,28 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('عرض المحافظات')
                         <li class="nav-item">
                             <a href="{{route('governorates.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All governorates</p>
                             </a>
                         </li>
+                        @endcan
+
+                        @can('اضافة محافظة')
                         <li class="nav-item">
                             <a href="{{route('governorates.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add new governorate</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
+                @endcan
+
+                @can('المدن')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-globe"></i>
@@ -115,20 +140,28 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('عرض المدن')
                         <li class="nav-item">
                             <a href="{{route('cities.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Cities</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('اضافة مدينة')
                         <li class="nav-item">
                             <a href="{{route('cities.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add new City</p>
                             </a>
                         </li>
+                        @endcan
+
                     </ul>
                 </li>
+                @endcan
+
+                @can('المستخدمين')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
@@ -138,12 +171,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @can('عرض المستخدمين')
                         <li class="nav-item">
                             <a href="{{route('users.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Users</p>
                             </a>
                         </li>
+                        @endcan
                         @can('اضافة مستخدم')
                         <li class="nav-item">
                             <a href="{{route('users.create')}}" class="nav-link">
@@ -154,7 +189,9 @@
                         @endcan
                     </ul>
                 </li>
+                @endcan
 
+                @can('الصلاحيات')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-lock"></i>
@@ -165,7 +202,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            @can('عرض صلاحية')
+                            @can('عرض الصلاحيات')
                             <a href="{{route('roles.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Permissions</p>
@@ -182,12 +219,18 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+
+                @can('عرض العملاء')
                 <li class="nav-item">
                     <a href="{{route('clients.index')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Clients</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('عرض الطلبات')
                 <li class="nav-item">
                     <a href="{{route('donations.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-spinner" aria-hidden="true"></i>
@@ -197,6 +240,9 @@
                         </p>
                     </a>
                 </li>
+                @endcan
+
+                @can('عرض الرسائل')
                 <li class="nav-item">
                     <a href="{{route('contacts.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-comment"></i>
@@ -205,6 +251,9 @@
                         </p>
                     </a>
                 </li>
+                @endcan
+
+                @can('عرض الإعدادات')
                 <li class="nav-item">
                     <a href="{{route('settingsEdit')}}" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
@@ -213,6 +262,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
 
             </ul>
         </nav>

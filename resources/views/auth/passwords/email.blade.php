@@ -1,5 +1,7 @@
 @extends('layouts.master2')
-
+@section('title')
+    Forget password
+@endsection
 @section('class')
     class="hold-transition login-page"
 @endsection

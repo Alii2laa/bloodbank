@@ -60,7 +60,7 @@ Route::group(['middleware'=> ['auth:admin','DisabledAccountAdmin'],'prefix' => '
 });
 
 Route::group(['prefix' => 'admin'],function () {
-    Auth::routes(['register' => false]);
+    Auth::routes(['register' => false,'confirm' => false]);
 });
 
 Route::group(['controller'=>UsersController::class],function (){
@@ -69,5 +69,4 @@ Route::group(['controller'=>UsersController::class],function (){
         ->middleware('redirectAdmin:admin');
     Route::post('admin-logout','banedLogout')->name('admin.baned.logout');
 });
-
 

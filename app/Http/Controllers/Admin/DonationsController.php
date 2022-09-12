@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class DonationsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض الطلبات', ['only' => ['index']]);
+        $this->middleware('permission:حذف الطلب', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

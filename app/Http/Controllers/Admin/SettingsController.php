@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:تعديل الإعدادات', ['only' => ['edit','update']]);
+
+    }
 
     public function edit()
     {

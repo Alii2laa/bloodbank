@@ -82,7 +82,7 @@
                             @foreach($posts as $post)
                                 <div class="card">
                                     <div class="photo">
-                                        <img src="{{asset('images/posts/'.$post->img)}}" class="card-img-top" alt="..." width="">
+                                        <img src="{{asset('images/posts/'.$post->image)}}" class="card-img-top" alt="..." width="">
                                         <a href="#" class="click">المزيد</a>
                                     </div>
                                     <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">

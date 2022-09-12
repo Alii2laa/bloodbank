@@ -20,7 +20,7 @@
                 </nav>
             </div>
             <div class="article-image">
-                <img src="{{asset('images/posts/'.$post->img)}}">
+                <img src="{{asset('images/posts/'.$post->image)}}">
             </div>
             <div class="article-title col-12">
                 <div class="h-text col-6">

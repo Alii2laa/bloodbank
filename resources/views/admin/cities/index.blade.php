@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+    Cities
+@endsection
 @section('css')
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -42,16 +45,18 @@
                                             <td>{{$city->governorate->name}}</td>
                                             <td>
                                                 <div class="btn-group">
+                                                    @can('تعديل مدينة')
                                                     <a href="{{route('cities.edit',$city->id)}}" class="m-1">
                                                         <button type="submit" class="btn btn-success">Edit</button>
                                                     </a>
-
+                                                    @endcan
+                                                    @can('حذف مدينة')
                                                     <form action="{{route('cities.destroy',$city->id)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
-
+                                                    @endcan
 
                                                 </div>
                                             </td>
