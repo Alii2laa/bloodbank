@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFavouriteRequest;
+use App\Trait\ApiResponseTrait;
 use App\Models\{Post,Client};
 use Illuminate\Http\Request;
 

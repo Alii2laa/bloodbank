@@ -14,9 +14,9 @@
 
 <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
-@yield('css')
+@stack('css')
 
 <script src="{{asset('assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{asset('assets/plugins/toastr/toastr.min.js')}}"></script>
-@yield('header-scripts')
+@stack('header-scripts')
 

@@ -104,7 +104,13 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
+        $cat = Category::find($id);
+
+        if(count($cat->posts) != 0){
+            return redirect()->route('categories.index')->with(['error' => 'عفواً لا يمكن حذف التصنيف هناك مقالات']);
+        };
+
+        $cat->delete();
         return redirect()->route('categories.index')->with(['success' => 'تم حذف التصنيف بنجاح']);
     }
 }

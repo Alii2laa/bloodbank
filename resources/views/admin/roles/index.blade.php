@@ -2,12 +2,12 @@
 @section('title')
     Roles
 @endsection
-@section('css')
+@push('css')
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
-@endsection
+@endpush
 @section('current-page-title')
     Roles
 @endsection
@@ -87,5 +87,5 @@
     </section>
 @endsection
 
-@section('scripts')
-@endsection
+@push('scripts')
+@endpush

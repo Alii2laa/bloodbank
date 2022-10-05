@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Client;
+use App\Trait\ApiResponseTrait;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

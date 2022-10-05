@@ -40,6 +40,6 @@
 <!-- ./wrapper -->
 
 @include('layouts.footer-scripts')
-@yield('scripts')
+@stack('scripts')
 </body>
 </html>

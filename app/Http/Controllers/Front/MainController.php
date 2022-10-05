@@ -18,7 +18,7 @@ class MainController extends Controller
     public function index(){
         $cities = DB::table('cities')->get();
         $bloodTypes = DB::table('blood_types')->get();
-        $posts = DB::table('posts')->take(6)->get(); //there is also skip ()
+        $posts = DB::table('posts')->take(6)->get();
         $donations = DonationRequest::take(2)->get();
         return view('front.home',compact('cities','bloodTypes','donations','posts'));
     }
