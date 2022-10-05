@@ -44,7 +44,7 @@
                                 <i class="fas fa-home"></i>
                                 الرئيسية
                             </a>
-                            <a class="dropdown-item" href="{{url('client/profile')}}">
+                            <a class="dropdown-item" href="{{route('profile.data')}}">
                                 <i class="far fa-user"></i>
                                 معلوماتى
                             </a>
@@ -52,11 +52,11 @@
                                 <i class="fa fa-lock"></i>
                                 تغيير كلمة المرور
                             </a>
-                            <a class="dropdown-item" href="{{url('client/notification-peripherals')}}">
+                            <a class="dropdown-item" href="{{route('peripherals.data')}}">
                                 <i class="far fa-bell"></i>
                                 اعدادات الاشعارات
                             </a>
-                            <a class="dropdown-item" href="{{url('client/favourited-posts')}}">
+                            <a class="dropdown-item" href="{{route('post.favourited')}}">
                                 <i class="far fa-heart"></i>
                                 المفضلة
                             </a>

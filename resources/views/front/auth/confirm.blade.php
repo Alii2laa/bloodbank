@@ -20,7 +20,7 @@
                 </nav>
             </div>
             <div class="signin-form">
-                <form method="POST" action="{{url('client/change-password-forget')}}">
+                <form method="POST" action="{{url('change-password-forget')}}">
                     @csrf
                     <div class="form-group">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  placeholder="كلمة المرور">

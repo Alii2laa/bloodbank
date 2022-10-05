@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Client;
-use App\Trait\ApiResponseTrait;
+use App\Trait\ApiResponse;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    use ApiResponseTrait;
+    use ApiResponse;
     /**
      * The path to the "home" route for your application.
      *

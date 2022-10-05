@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\RegistrationRequest;
-use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\{ChangePasswordRequest,RegistrationRequest,ResetPasswordRequest};
 use App\Mail\ResetPassword;
-use App\Models\BloodType;
-use App\Models\City;
-use App\Models\Client;
+use App\Models\{City,Client,BloodType};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -30,9 +24,9 @@ class AuthController extends Controller
     */
     public function login(Request $request){
         if (auth()->guard('client')->attempt(['phone' => $request->input("phone"), 'password' => $request->input("password")])) {
-            return redirect()->route('front.home');
+            return redirect()->route('front.home')->with(['success' => 'تم تسجيل الدخول لحسابك بنجاح']);
         }
-        return redirect()->back();
+        return redirect()->back()->with(['error' => 'فشل تسجيل الدخول لحسابك']);
     }
 
 
@@ -89,7 +83,7 @@ class AuthController extends Controller
 
                 Mail::to($client->email)
                     ->send(new ResetPassword($code,$phone));
-                return redirect('client/change')->with(['success' => 'تم إرسال الكود بنجاح']);
+                return redirect('reset')->with(['success' => 'تم إرسال الكود بنجاح']);
             }
         }else{
             return redirect()->back()->with(['error' => 'عفواً لا يوجد لك حساب']);
@@ -104,19 +98,19 @@ class AuthController extends Controller
         a form after mail send to client with link and check for code and mobile
         when redirect to it.
     */
-    public function changePasswordForgetView(Request $request,$code){
+    public function changePasswordForgetView(Request $request,$code = null){
 
         $client = Client::where('phone',$request->phone)->first();
         if($client){
             $phone = $client->phone;
-            $reqCode = $code; //make hash
+            $reqCode = $code;
             if($reqCode == $client->pin_code && $phone == $request->phone){
                 return view('front.auth.confirm',compact('reqCode','phone'));
             }else{
-                return redirect('client/reset')->with(['error' => 'كود التحقق خطأ']);
+                return redirect('reset')->with(['error' => 'كود التحقق خطأ']);
             }
         }else{
-            return redirect('client/reset')->with(['error' => 'لا يوجد حساب لهذا الهاتف']);
+            return redirect('reset')->with(['error' => 'لا يوجد حساب لهذا الهاتف']);
         }
 
     }
@@ -139,29 +133,13 @@ class AuthController extends Controller
                     'pin_code' => Null
                 ]);
             }else{
-                return redirect('client/reset')->with(['error' => 'كود التحقق خطأ']);
+                return redirect('reset')->with(['error' => 'كود التحقق خطأ']);
             }
             return redirect()->route('front.login.show')->with(['success' => 'تم تغيير كلمه المرور بنجاح']);
         }else{
-            return redirect('client/reset')->with(['error' => 'لا يوجد حساب لهذا الهاتف']);
+            return redirect('reset')->with(['error' => 'لا يوجد حساب لهذا الهاتف']);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

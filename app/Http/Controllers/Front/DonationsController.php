@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationsRequest;
-use App\Models\BloodType;
-use App\Models\City;
-use App\Models\DonationRequest;
+use App\Models\{BloodType,City,DonationRequest};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,6 +46,7 @@ class DonationsController extends Controller
         $notification = $donation->notifications()->create([
             'title' => 'طلب تبرع لفصيلة دم',
             'date' => now(),
+            'content' => $donation->notes,
             'donation_request_id' => $donation->id
         ]);
 

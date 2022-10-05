@@ -6,7 +6,7 @@ namespace App\Trait;
 
 use App\Models\DonationRequest;
 
-trait NotificationTrait
+trait Notification
 {
     public function notifyByFirebase($title, $body, $tokens, $data = [], $is_notification = true){
 // https://gist.github.com/rolinger/d6500d65128db95f004041c2b636753a

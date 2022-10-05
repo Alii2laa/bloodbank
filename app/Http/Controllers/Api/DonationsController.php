@@ -4,18 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationsRequest;
-use App\Models\DonationRequest;
-use App\Models\Token;
-use App\Trait\ApiResponseTrait;
-use App\Trait\NotificationTrait;
+use App\Models\{DonationRequest,Token};
+use App\Trait\{ApiResponse,Notification};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
+
 
 class DonationsController extends Controller
 {
-    use ApiResponseTrait;
-    use NotificationTrait;
+    use ApiResponse;
+    use Notification;
 
     /*
        AllDonations function is responsible for:

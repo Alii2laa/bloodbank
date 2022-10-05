@@ -14,7 +14,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('front.home')}}">الرئيسية</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="{{url('client/posts')}}">المقالات</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="{{url('posts')}}">المقالات</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$post->title}}</li>
                     </ol>
                 </nav>
@@ -27,7 +27,22 @@
                     <h4>{{$post->title}}</h4>
                 </div>
                 <div class="icon col-6">
-                    <button type="button"><i class="far fa-heart"></i></button>
+                    <a href="{{url('favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
+                        <i class="{{$post->is_favourite == true ? 'fa fa-heart' : 'far fa-heart'}}" style="position: absolute;
+                                        background-color: #2d3e50;
+                                        border: none;
+                                        color: #ffffff;
+                                        border-radius: 100%;
+                                        font-size: 20px;
+                                        padding: 10px;
+                                        top: 6px;
+                                        left: 6px;
+                                        z-index: 5;"></i>
+                    </a>
+                    <form id="fav-form-{{$post->id}}" action="{{url('favourite-post')}}" method="POST" style="display: none">
+                        @csrf
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                    </form>
                 </div>
             </div>
 

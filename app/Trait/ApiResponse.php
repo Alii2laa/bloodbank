@@ -4,7 +4,7 @@
 namespace App\Trait;
 
 
-trait ApiResponseTrait
+trait ApiResponse
 {
     public function apiResponseJson($data = null,$message = 'done',$status = 200){
         $response = [

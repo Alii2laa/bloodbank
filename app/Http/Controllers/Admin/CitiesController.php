@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CityRequest;
-use App\Models\City;
-use App\Models\Governorate;
+use App\Models\{Governorate,City};
 
 
 class CitiesController extends Controller

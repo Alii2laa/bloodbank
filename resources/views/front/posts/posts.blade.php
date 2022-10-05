@@ -26,13 +26,18 @@
                 </div>
                 <div class="content">
                     <div class="row">
-                        @foreach($posts as $post)
+                        @if(count($posts) === 0)
+                            <div>
+                                عفواً لا يوجد مقالات.
+                            </div>
+                        @else
+                            @foreach($posts as $post)
                                 <div class="col-4">
                                     <div class="card" style="width: 18rem;">
                                         <div class="photo">
                                             <img src="{{asset('images/posts/'.$post->image)}}" class="card-img-top" alt="..." width="">
                                         </div>
-                                        <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
+                                        <a href="{{url('favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
                                             <i class="{{$post->is_favourite == true ? 'fa fa-heart' : 'far fa-heart'}}" style="position: absolute;
                                         background-color: #2d3e50;
                                         border: none;
@@ -44,7 +49,7 @@
                                         left: 6px;
                                         z-index: 5;"></i>
                                         </a>
-                                        <form id="fav-form-{{$post->id}}" action="{{url('client/favourite-post')}}" method="POST" style="display: none">
+                                        <form id="fav-form-{{$post->id}}" action="{{url('favourite-post')}}" method="POST" style="display: none">
                                             @csrf
                                             <input type="hidden" name="post_id" value="{{$post->id}}">
                                         </form>
@@ -56,6 +61,7 @@
                                 </div>
 
                         @endforeach
+                        @endif
                     </div>
 {{--                    <div class="pages mt-5">--}}
 {{--                        {{ $posts->links('front.layouts.paginator') }}--}}

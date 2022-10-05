@@ -9,6 +9,7 @@
 
 @section('content')
     <div class="all-requests">
+        @include('layouts.alerts')
         <div class="container">
             <div class="path">
                 <nav aria-label="breadcrumb">
@@ -26,12 +27,17 @@
                 </div>
                 <div class="content">
                     <div class="row">
-                        @foreach($posts as $post)
+                        @if(count($posts) === 0)
+                            <div>
+                                عفواً لا يوجد مقالات مفضلة.
+                            </div>
+                        @else
+                            @foreach($posts as $post)
                             <div class="col-4">
                                 <div class="card" style="width: 18rem;">
                                     <img class="card-img-top" src="{{asset('images/posts/'.$post->image)}}" alt="Card image cap">
                                     <div class="card-body">
-                                        <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
+                                        <a href="{{url('favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
                                             <i class="fa fa-heart" id="favIcon" style="position: absolute;
                                         background-color: #2d3e50;
                                         border: none;
@@ -43,7 +49,7 @@
                                         left: 6px;
                                         z-index: 5;"></i>
                                         </a>
-                                        <form id="fav-form-{{$post->id}}" action="{{url('client/favourite-post')}}" method="POST" style="display: none">
+                                        <form id="fav-form-{{$post->id}}" action="{{url('favourite-post')}}" method="POST" style="display: none">
                                             @csrf
                                             <input type="hidden" name="post_id" value="{{$post->id}}">
                                         </form>
@@ -53,6 +59,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                     </div>
                     <div class="pages mt-5">
                         {{ $posts->links('front.layouts.paginator') }}

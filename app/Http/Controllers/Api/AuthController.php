@@ -10,6 +10,7 @@ use App\Http\Requests\TokenRequest;
 use App\Mail\ResetPassword;
 use App\Models\Client;
 use App\Models\Token;
+use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +18,7 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponse;
 
     /*
         "Register" function is responsible for make

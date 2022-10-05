@@ -10,7 +10,7 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\{Route,Auth};
 
 
-Route::group(['prefix' => 'client','middleware' => ['DisabledAccount','auth:client']],function (){
+Route::group(['middleware' => ['DisabledAccount','auth:client']],function (){
 
 Route::group(['controller' => MainController::class],function (){
     Route::get('/','index')->name('front.home');
@@ -30,16 +30,16 @@ Route::group(['controller' => DonationsController::class],function (){
 });
 
 Route::group(['controller' => ProfileController::class],function (){
-    Route::get('profile','profileData');
+    Route::get('profile','profileData')->name('profile.data');
     Route::post('update-profile','profileUpdateData')->name('profile.update');
-    Route::get('notification-peripherals','notificationPeripherals');
+    Route::get('notification-peripherals','notificationPeripherals')->name('peripherals.data');
     Route::post('notification-peripherals','createNotificationPeripherals')->name('peripherals.update');
 });
 
 Route::group(['controller' => PostsController::class],function (){
-    Route::get('posts','allPosts');
+    Route::get('posts','allPosts')->name('post.index');
     Route::get('/post/{id}','postShow')->name('post.show');
-    Route::get('favourited-posts','favouritedPosts');
+    Route::get('favourited-posts','favouritedPosts')->name('post.favourited');
     Route::post('favourite-post','favouritePost');
 });
 
@@ -52,7 +52,7 @@ Route::group(['controller' => AuthController::class],function (){
 
 });
 
-Route::group(['controller' => AuthController::class,'prefix' => 'client'],function (){
+Route::group(['controller' => AuthController::class],function (){
 
 
     Route::group(['middleware' => 'guest:client'],function (){
@@ -74,7 +74,7 @@ Route::group(['controller' => AuthController::class,'prefix' => 'client'],functi
 
 Route::group(['controller' => AuthController::class],function (){
 
-    Route::get('client/baned','baned')->name('client.baned')
+    Route::get('baned','baned')->name('client.baned')
         ->middleware('redirectClient:client');
     Route::post('client-logout','banedLogout')->name('front.baned.logout');
 

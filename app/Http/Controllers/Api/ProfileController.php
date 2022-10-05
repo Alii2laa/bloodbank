@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Models\Client;
-use App\Trait\ApiResponseTrait;
+use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponse;
 
     /*
         ProfileData function is responsible for return authenticated client's data to update it.

@@ -10,6 +10,7 @@
 
 @section('content')
     <div class="form">
+        @include('layouts.alerts')
         <div class="container">
             <div class="path">
                 <nav aria-label="breadcrumb">
