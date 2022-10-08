@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Models\BloodType;
-use App\Models\City;
-use App\Models\Client;
-use App\Models\Governorate;
+use App\Models\{BloodType,City,Governorate};
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -17,8 +14,8 @@ class ProfileController extends Controller
     */
     public function profileData(){
         $client = auth('client')->user();
-        $cities = City::all();
-        $blood_types = BloodType::all();
+        $cities = City::pluck('name','id')->all();
+        $blood_types = BloodType::pluck('name','id')->all();
         return view('front.profile.profile',compact('client','cities','blood_types'));
     }
 

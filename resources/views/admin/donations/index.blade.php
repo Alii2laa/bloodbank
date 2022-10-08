@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+    Donations
+@endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -57,12 +60,13 @@
                                             <td>{{$donation->client->name}}</td>
                                             <td>
                                                 <div class="btn-group">
+                                                    @can('حذف الطلب')
                                                     <form action="{{route('donations.destroy',$donation->id)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
-
+                                                    @endcan
 
                                                 </div>
                                             </td>

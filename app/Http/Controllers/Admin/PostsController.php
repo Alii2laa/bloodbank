@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-use App\Models\Category;
-use App\Models\Post;
+use App\Models\{Category,Post};
 use App\Trait\UploadImage;
+use Illuminate\Http\Request;
 
 
 class PostsController extends Controller
 {
     use UploadImage;
 
+    function __construct()
+    {
+        $this->middleware('permission:عرض المقالات', ['only' => ['index']]);
+        $this->middleware('permission:اضافة مقالة', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل مقالة', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف مقالة', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +38,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::pluck('name','id');
         return view('admin.posts.create',compact('categories'));
     }
 
@@ -41,14 +48,17 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
+
+
+
         if($request->hasFile('image')){
             $photoName = $this->uploadImage($request->image,'images/posts');
             Post::create([
                 'title' => $request->title,
-                'content' => $request->content_data,
-                'img' => $photoName,
+                'content' => $request->content,
+                'image' => $photoName,
                 'category_id' => $request->category_id,
             ]);
             return redirect()->route('posts.index')->with(['success' => 'تم إضافة المقالة بنجاح']);
@@ -75,7 +85,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
+        $categories = Category::pluck('name','id');
         $post = Post::find($id);
         return view('admin.posts.edit',compact('categories','post'));
     }
@@ -90,26 +100,25 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
 
-        $post = Post::find($id);
+        $post = Post::find($id)->setAppends([]);
         if(!$post){
             return redirect()->back();
         }
-
         $post->update([
             'title' => $request->title,
-            'content' => $request->content_data,
+            'content' => $request->content,
             'category_id' => $request->category_id
         ]);
 
         if($request->hasFile('image')){
-            $oldImage = public_path().'/images/posts/'.$post->img;
+            $oldImage = public_path().'/images/posts/'.$post->image;
             unlink($oldImage);
             $photoName = $this->uploadImage($request->image,'images/posts');
             $post->update([
-                'img' => $photoName
+                'image' => $photoName
             ]);
         }
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with(['success' => 'تم تحديث المقالة بنجاح']);
 
 
     }
@@ -122,7 +131,11 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
+        $post = Post::find($id);
+        $oldImage = public_path().'/images/posts/'.$post->image;
+        unlink($oldImage);
+        $post->delete();
         return redirect()->route('posts.index')->with(['success' => 'تم حذف المقاله بنجاح']);
     }
+
 }

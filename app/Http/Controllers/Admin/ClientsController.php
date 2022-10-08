@@ -1,14 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-
-
 use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض العملاء', ['only' => ['index']]);
+        $this->middleware('permission:تفعيل العميل', ['only' => ['updateStatus']]);
+
+        $this->middleware('permission:حذف العميل', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

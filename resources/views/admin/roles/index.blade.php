@@ -1,10 +1,13 @@
 @extends('layouts.master')
-@section('css')
+@section('title')
+    Roles
+@endsection
+@push('css')
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
-@endsection
+@endpush
 @section('current-page-title')
     Roles
 @endsection
@@ -47,18 +50,18 @@
 
                                             <td>
                                                 <div class="btn-group">
-{{--                                                    @can('تعديل صلاحية')--}}
+                                                    @can('تعديل صلاحية')
                                                     <a href="{{route('roles.edit',$role->id)}}" class="m-1">
                                                         <button type="submit" class="btn btn-success">Edit</button>
                                                     </a>
-{{--                                                    @endcan--}}
-
+                                                    @endcan
+                                                    @can('حذف صلاحية')
                                                     <form action="{{route('roles.destroy',$role->id)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
-
+                                                    @endcan
 
                                                 </div>
                                             </td>
@@ -84,5 +87,5 @@
     </section>
 @endsection
 
-@section('scripts')
-@endsection
+@push('scripts')
+@endpush

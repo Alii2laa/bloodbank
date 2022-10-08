@@ -13,7 +13,7 @@
                     <div class="list-group" id="list-tab" role="tablist">
                         <a class="list-group-item list-group-item-action active" id="list-home-list" href="{{route('front.home')}}" role="tab" aria-controls="home">الرئيسية</a>
                         <a class="list-group-item list-group-item-action" id="list-profile-list" href="{{route('about')}}" role="tab" aria-controls="profile">عن بنك الدم</a>
-                        <a class="list-group-item list-group-item-action" id="list-messages-list" href="{{url('client/posts')}}" role="tab" aria-controls="messages">المقالات</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" href="{{route('post.index')}}" role="tab" aria-controls="messages">المقالات</a>
                         <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{route('donations')}}" role="tab" aria-controls="settings">طلبات التبرع</a>
                         <a class="list-group-item list-group-item-action" id="list-settings-list" href="{{route('contact')}}" role="tab" aria-controls="settings">اتصل بنا</a>
                     </div>

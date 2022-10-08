@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
+use App\Trait\ApiResponse;
 use App\Models\{BloodType,Category,City,Client,Contact,Governorate,Setting};
 use Illuminate\Http\Request;
 

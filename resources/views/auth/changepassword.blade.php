@@ -1,4 +1,9 @@
 @extends('layouts.master')
+
+@section('title')
+    Change password
+@endsection
+
 @section('current-page-title')
     Password
 @endsection

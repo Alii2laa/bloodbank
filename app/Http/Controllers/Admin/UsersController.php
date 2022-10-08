@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{Auth,DB,Hash};
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Arr;
 use Spatie\Permission\Traits\HasRoles;
@@ -15,6 +13,15 @@ use Spatie\Permission\Traits\HasRoles;
 class UsersController extends Controller
 {
     use HasRoles;
+
+    function __construct()
+    {
+        $this->middleware('permission:عرض المستخدمين', ['only' => ['index']]);
+        $this->middleware('permission:اضافة مستخدم', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل مستخدم', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف مستخدم', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +55,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'password' => 'required|same:confirm_password',
             'roles_name' => 'required',
             'status' => 'required'
         ]);
@@ -98,7 +105,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'password' => 'same:confirm_password',
             'roles_name' => 'required',
             'status' => 'required',
         ]);
@@ -146,9 +153,9 @@ class UsersController extends Controller
                 $user->update([
                     'password' => bcrypt($request->new_password)
                 ]);
-                return redirect()->back()->with(['success' => 'تم تغيير كلمة المرور بنجاح']);
+                return redirect()->route('admin.dashboard')->with(['success' => 'تم تغيير كلمة المرور بنجاح']);
             }else{
-                return redirect()->back()->with(['error' => 'عفواً كلمة المرور القديمة خاطئة']);
+                return redirect()->route('admin.dashboard')->with(['error' => 'عفواً كلمة المرور القديمة خاطئة']);
             }
         }
 

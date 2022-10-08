@@ -18,8 +18,8 @@
                     <li class="nav-item {{Route::currentRouteName() == 'donations' ? 'active' : ''}}">
                         <a class="nav-link" href="{{route('donations')}}">طلبات التبرع</a>
                     </li>
-                    <li class="nav-item {{Request::is('client/posts') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{url('client/posts')}}">المقالات</a>
+                    <li class="nav-item {{Route::currentRouteName() == 'post.index' ? 'active' : ''}}">
+                        <a class="nav-link" href="{{route('post.index')}}">المقالات</a>
                     </li>
                     <li class="nav-item {{Route::currentRouteName() == 'contact.show' ? 'active' : ''}}">
                         <a class="nav-link" href="{{route('contact.show')}}">اتصل بنا</a>

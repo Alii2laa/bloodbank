@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationsRequest;
-use App\Models\BloodType;
-use App\Models\City;
-use App\Models\DonationRequest;
+use App\Models\{BloodType,City,DonationRequest};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +15,8 @@ class DonationsController extends Controller
         with cities and blood_types to select their needs that they want from donators.
     */
     public function donationView(){
-        $cities = City::all();
-        $blood_types = BloodType::all();
+        $cities = City::pluck('name','id')->all();
+        $blood_types = BloodType::pluck('name','id')->all();
         return view('front.donations.create',compact('cities','blood_types'));
     }
 
@@ -48,6 +46,7 @@ class DonationsController extends Controller
         $notification = $donation->notifications()->create([
             'title' => 'طلب تبرع لفصيلة دم',
             'date' => now(),
+            'content' => $donation->notes,
             'donation_request_id' => $donation->id
         ]);
 

@@ -7,6 +7,7 @@
 @section('content')
     <!--intro-->
     <div class="intro">
+        @include('layouts.alerts')
         <div id="slider" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#slider" data-slide-to="0" class="active"></li>
@@ -82,13 +83,22 @@
                             @foreach($posts as $post)
                                 <div class="card">
                                     <div class="photo">
-                                        <img src="{{asset('images/posts/'.$post->img)}}" class="card-img-top" alt="..." width="">
-                                        <a href="#" class="click">المزيد</a>
+                                        <img src="{{asset('images/posts/'.$post->image)}}" class="card-img-top" alt="..." width="">
+                                        <a href="{{route('post.show',$post->id)}}" class="click">المزيد</a>
                                     </div>
-                                    <a href="{{url('client/favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
-                                        <i class="far fa-heart" id="favIcon"></i>
+                                    <a href="{{url('favourite-post')}}" class="favourite" onclick="event.preventDefault();document.getElementById('fav-form-{{$post->id}}').submit();">
+                                        <i class="{{$post->is_favourite == true ? 'fa fa-heart' : 'far fa-heart'}}" style="position: absolute;
+                                        background-color: #2d3e50;
+                                        border: none;
+                                        color: #ffffff;
+                                        border-radius: 100%;
+                                        font-size: 20px;
+                                        padding: 10px;
+                                        top: 6px;
+                                        left: 6px;
+                                        z-index: 5;"></i>
                                     </a>
-                                    <form id="fav-form-{{$post->id}}" action="{{url('client/favourite-post')}}" method="POST" style="display: none">
+                                    <form id="fav-form-{{$post->id}}" action="{{url('favourite-post')}}" method="POST" style="display: none">
                                         @csrf
                                         <input type="hidden" name="post_id" value="{{$post->id}}">
                                     </form>

@@ -10,6 +10,7 @@ class Notification extends Model
 
     protected $fillable = [
         'title',
+        'content',
         'date',
         'donation_request_id'
     ];

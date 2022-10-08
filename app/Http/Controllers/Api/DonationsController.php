@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationsRequest;
-use App\Models\DonationRequest;
+use App\Models\{DonationRequest,Token};
+use App\Trait\{ApiResponse,Notification};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
+
 
 class DonationsController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponse;
+    use Notification;
 
     /*
        AllDonations function is responsible for:
@@ -75,17 +76,36 @@ class DonationsController extends Controller
         $users = $donation->city->governorate->mClients()
             ->whereHas('mBloodTypes',function ($query) use ($request,$donation){
                 $query->where('blood_types.id',$donation->blood_type_id);
-            })->pluck('clients.id');
+            })->pluck('clients.id')->toArray();
 
-        $notification = $donation->notifications()->create([
-            'title' => 'طلب تبرع لفصيلة دم',
-            'date' => now(),
-            'donation_request_id' => $donation->id
-        ]);
+        if (count($users)){
+            $notification = $donation->notifications()->create([
+                'title' => 'طلب تبرع لفصيلة دم',
+                'content' => $donation->bloodType->name . ' محتاج في أسرع وقت طلب تبرع لفصيلة',
+                'date' => now(),
+                'donation_request_id' => $donation->id
+            ]);
 
-        $notification->mClients()->attach($users->toArray());
 
-        return $this->apiResponseJson($users,'تم إضافة الطلب بنجاح',201);
+            $notification->mClients()->attach($users);
+
+            $tokens = Token::whereIn('client_id',$users)->where('token' , '!=',null)->pluck('token');
+
+            if(count($tokens)){
+                $title = $notification->title;
+                $body = $notification->content;
+                $data = [
+                    'donation_request_id' => $donation->id
+                ];
+
+                $this->notifyByFirebase($title,$body,$tokens,$data,true);
+
+            }
+        }
+
+        return $this->apiResponseJson($donation,'تم إضافة الطلب بنجاح',201);
 
     }
+
+
 }

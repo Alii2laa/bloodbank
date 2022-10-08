@@ -7,7 +7,7 @@ Bank blood reset password.
 Reset
 @endcomponent
 
-<p>Your reset code : <strong> <a href="http://bloodbank.ipd3/client/change/{{$code}}/?phone={{$phone}}"> تغير كلمة المرور</a></strong></p>
+<p>Your reset code : <strong> <a href="http://bloodbank.ipd3/change/{{$code}}/?phone={{$phone}}"> تغير كلمة المرور</a></strong></p>
 
 Thanks,<br>
 {{ config('app.name') }}

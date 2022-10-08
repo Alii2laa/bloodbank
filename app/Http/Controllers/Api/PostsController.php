@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFavouriteRequest;
+use App\Trait\ApiResponse;
 use App\Models\{Post,Client};
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponse;
 
     /*
         allPosts function is responsible for return all posts with favourite posts of authenticated client.

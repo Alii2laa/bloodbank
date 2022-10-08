@@ -1,4 +1,9 @@
 @extends('layouts.master')
+
+@section('title')
+    Users
+@endsection
+
 @section('css')
 
 <!-- Internal Data table css -->
@@ -71,7 +76,7 @@
                                 @csrf
                                 @method('DELETE')
                             </form>
-                                @endcan
+                            @endcan
                             </td>
                         </tr>
                         @endforeach

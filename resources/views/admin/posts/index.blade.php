@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+    Posts
+@endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -40,21 +43,23 @@
                                         <tr>
                                             <td>{{$post->id}}</td>
                                             <td>{{$post->title}}</td>
-                                            <td><img src="{{asset('images/posts/'.$post->img)}}" alt="" width="100%"></td>
+                                            <td><img src="{{asset('images/posts/'.$post->image)}}" alt="" width="100%"></td>
                                             <td>{{substr($post->content,0,100)}}</td>
                                             <td>{{$post->category->name}}</td>
                                             <td>
                                                 <div class="btn-group">
+                                                    @can('تعديل مقالة')
                                                     <a href="{{route('posts.edit',$post->id)}}" class="m-1">
                                                         <button type="submit" class="btn btn-success">Edit</button>
                                                     </a>
-
+                                                    @endcan
+                                                    @can('حذف مقالة')
                                                     <form action="{{route('posts.destroy',$post->id)}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
-
+                                                    @endcan
 
                                                 </div>
                                             </td>
@@ -120,3 +125,5 @@
 
     </script>
 @endsection
+
+

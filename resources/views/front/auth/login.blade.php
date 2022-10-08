@@ -39,7 +39,7 @@
                     <div class="row options">
                         <div class="col-md-6 forgot">
                             <img src="{{asset('front/imgs/complain.png')}}">
-                            <a href="{{url('client/reset')}}">هل نسيت كلمة المرور</a>
+                            <a href="{{url('reset')}}">هل نسيت كلمة المرور</a>
                         </div>
                     </div>
                     <div class="row buttons">

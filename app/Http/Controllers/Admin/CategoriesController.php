@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:عرض التصنيفات', ['only' => ['index']]);
+        $this->middleware('permission:اضافة تصنيف', ['only' => ['create','store']]);
+        $this->middleware('permission:تعديل تصنيف', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف تصنيف', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +45,7 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create( $request->validated() );
-        return redirect()->back()->with(['success' => 'تم إضافة التصنيف بنجاح']);
+        return redirect()->route('categories.index')->with(['success' => 'تم إضافة التصنيف بنجاح']);
 
     }
 
@@ -81,12 +87,12 @@ class CategoriesController extends Controller
     {
         $category = Category::find($id);
         if(!$category){
-            return redirect()->back()->with(['error' => 'لا يوجد تصنيف']);
+            return redirect()->route('categories.index')->with(['error' => 'لا يوجد تصنيف']);
         }
 
         $category->update( $request->validated() );
 
-        return redirect()->back()->with(['success' => 'تم تحديث التصنيف بنجاح']);
+        return redirect()->route('categories.index')->with(['success' => 'تم تحديث التصنيف بنجاح']);
     }
 
     /**
@@ -97,7 +103,13 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-        return redirect()->back()->with(['success' => 'تم حذف التصنيف بنجاح']);
+        $cat = Category::find($id);
+
+        if(count($cat->posts) != 0){
+            return redirect()->route('categories.index')->with(['error' => 'عفواً لا يمكن حذف التصنيف هناك مقالات']);
+        };
+
+        $cat->delete();
+        return redirect()->route('categories.index')->with(['success' => 'تم حذف التصنيف بنجاح']);
     }
 }

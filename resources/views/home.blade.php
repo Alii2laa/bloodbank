@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+    Home
+@endsection
 @section('current-page-title')
     Main
 @endsection

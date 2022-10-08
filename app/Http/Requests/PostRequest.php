@@ -23,10 +23,12 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+
+        $rule =( $this->getMethod() == 'PUT') ? 'nullable' : 'required';
         return [
             'title' => 'required',
-            'content_data' => 'required',
-            'image' => 'required',
+            'content' => 'required',
+            'image' => $rule.'|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required',
         ];
     }
@@ -34,8 +36,11 @@ class PostRequest extends FormRequest
     {
         return [
             'title.required' => 'برجاء إدخال عنوان المقالة',
-            'content_data.required' => 'برجاء إدخال محتوى المقالة',
+            'content.required' => 'برجاء إدخال محتوى المقالة',
             'image.required' => 'برجاء إدخال صورة المقالة',
+            'image.image' => 'برجاء إدخال صورة صحيحة',
+            'image.mimes' => 'الإمتدادات المسموحه فقط jpeg,png,jpg,gif,svg',
+            'image.max' => 'عفواً يجب أن يكون الحد الأقصي للصورة 2 ميجا بايت',
             'category_id.required' => 'برجاء إدخال فئة المقالة',
         ];
     }

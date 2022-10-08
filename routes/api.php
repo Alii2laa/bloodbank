@@ -43,6 +43,7 @@ Route::group(['prefix'=>'v1','controller' => DonationsController::class,'middlew
     Route::get('donations','allDonations');
     Route::get('donation','singleDonation');
     Route::post('donation-create','createDonation');
+
 });
 
 Route::group(['prefix'=>'v1','controller' => ProfileController::class,'middleware' => 'auth:api'],function (){
@@ -52,10 +53,19 @@ Route::group(['prefix'=>'v1','controller' => ProfileController::class,'middlewar
     Route::post('notification-peripherals','createNotificationPeripherals');
 });
 
+Route::group(['prefix'=>'v1','controller' => AuthController::class,'middleware' => 'auth:api'],function (){
+    Route::post('register_token','registerToken');
+
+});
+
 Route::group(['prefix'=>'v1','controller' => AuthController::class],function (){
     Route::post('register','register');
     Route::post('login','login');
     Route::post('reset-password','resetPassword');
     Route::post('change-password','changePassword')->middleware('throttle:password-rate-limit');
+});
+
+Route::group(['prefix'=>'v1'],function (){
+    Route::post('test_notify',[\App\Http\Controllers\HomeController::class,'testNotification']);
 });
 
